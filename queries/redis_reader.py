@@ -117,7 +117,8 @@ def busca_redisearch(
     if estado:
         parts.append(f"@estado:{{{estado}}}")
     if bandeira:
-        parts.append(f"@bandeira:{{{bandeira.replace(' ', '\\ ')}}}")
+        escaped = bandeira.replace(" ", "\\ ")
+        parts.append(f"@bandeira:{{{escaped}}}")
     query_text = " ".join(parts) if parts else "*"
     query = (
         Query(query_text)
