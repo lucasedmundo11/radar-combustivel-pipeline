@@ -55,21 +55,15 @@ DB_NAME = os.getenv("DB_NAME", "radar_combustivel")
 
 
 def _ensure_ts_add(redis: Redis, key: str, ts: int, value: float, labels: Dict[str, str]) -> None:
-    """Insere ponto na time series, criando-a na primeira vez."""
-    try:
-        redis.execute_command("TS.ADD", key, ts, value, "ON_DUPLICATE", "LAST")
-    except ResponseError as exc:
-        msg = str(exc).lower()
-        if "key does not exist" not in msg and "tsdb: the key does not exist" not in msg:
-            raise
-        flat_labels = sum(([k, v] for k, v in labels.items()), [])
-        redis.execute_command(
-            "TS.CREATE", key,
-            "RETENTION", 0,
-            "DUPLICATE_POLICY", "LAST",
-            "LABELS", *flat_labels,
-        )
-        redis.execute_command("TS.ADD", key, ts, value, "ON_DUPLICATE", "LAST")
+    """Insere ponto na time series; labels são aplicadas na criação automática pelo Redis Stack."""
+    flat_labels = sum(([k, v] for k, v in labels.items()), [])
+    redis.execute_command(
+        "TS.ADD", key, ts, value,
+        "ON_DUPLICATE", "LAST",
+        "RETENTION", 0,
+        "DUPLICATE_POLICY", "LAST",
+        "LABELS", *flat_labels,
+    )
 
 
 # ---------------------------------------------------------------------------

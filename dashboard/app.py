@@ -237,7 +237,7 @@ with tab_precos:
                 title=f"Top {int(n_items)} menores preços — {COMBUSTIVEL_LABELS[combustivel_sel]}",
             )
             fig.update_layout(coloraxis_showscale=False)
-            st.plotly_chart(fig, width="stretch")
+            st.plotly_chart(fig, use_container_width=True)
         with col_right:
             st.dataframe(df, width="stretch", hide_index=True)
 
@@ -275,7 +275,7 @@ with tab_variacoes:
                 title=f"Top {int(n_items)} maiores variações de preço (%)",
             )
             fig.update_layout(coloraxis_showscale=False)
-            st.plotly_chart(fig, width="stretch")
+            st.plotly_chart(fig, use_container_width=True)
         with col_right:
             st.dataframe(df, width="stretch", hide_index=True)
 
@@ -316,7 +316,7 @@ with tab_aval:
                 title=f"Top {int(n_items)} por nota média",
             )
             fig.update_layout(coloraxis_showscale=False)
-            st.plotly_chart(fig, width="stretch")
+            st.plotly_chart(fig, use_container_width=True)
         with col_right:
             st.dataframe(df, width="stretch", hide_index=True)
 
@@ -337,7 +337,7 @@ with tab_buscas:
                 columns=["Combustível", "Buscas"],
             )
             fig = px.pie(df_c, names="Combustível", values="Buscas", title="Distribuição por combustível")
-            st.plotly_chart(fig, width="stretch")
+            st.plotly_chart(fig, use_container_width=True)
             st.dataframe(df_c, width="stretch", hide_index=True)
 
     with col_b:
@@ -360,7 +360,7 @@ with tab_buscas:
                 title="Volume de buscas por estado",
             )
             fig.update_layout(coloraxis_showscale=False)
-            st.plotly_chart(fig, width="stretch")
+            st.plotly_chart(fig, use_container_width=True)
 
 
 # ─── Aba 5: Evolução de Preços ─────────────────────────────────────────────
@@ -399,7 +399,7 @@ with tab_ts:
                 title=f"Preço {COMBUSTIVEL_LABELS[ts_combustivel]} — {nome}",
                 labels={"preco": "Preço (R$/L)", "datetime": "Data"},
             )
-            st.plotly_chart(fig, width="stretch")
+            st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
     st.markdown("**Tendência média diária por combustível (todos os postos)**")
@@ -437,7 +437,7 @@ with tab_ts:
                 title=f"Preço médio diário — {COMBUSTIVEL_LABELS[ts_comb_geral]} (amostra de postos)",
                 labels={"preco_medio": "Preço Médio (R$/L)", "datetime": "Data"},
             )
-            st.plotly_chart(fig, width="stretch")
+            st.plotly_chart(fig, use_container_width=True)
 
 
 # ─── Aba 6: Busca Avançada ─────────────────────────────────────────────────
